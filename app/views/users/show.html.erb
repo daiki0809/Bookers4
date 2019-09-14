@@ -1,0 +1,52 @@
+<div class="page_box">
+
+<% if false %>----ここから---------<% end %>
+<div class="sidebar">
+	<div class="user_info">
+		<h1>User info</h1>
+		<div>ユーザーイメージ</div>
+		<table>
+			<tr>
+				<th>name</th>
+				<th><%= @user.name %></th>
+			</tr>
+			<tr>
+				<th>introduction</th>
+				<th><%= @user.introduction %></th>
+			</tr>
+		</table>
+		<p>edit</p>
+	</div>
+		<%= form_for(@post) do |f| %>
+	<div class="New_book">
+		<p><%= f.label :title,"Title" %></p>
+		<p><%= f.text_field :title %></p>
+
+		<p><%= f.label :body,"Opinion" %></p>
+		<p><%= f.text_area :body %></p>
+
+		<%= f.submit 'Create Book' %>
+		<% end %>
+	</div>
+
+</div>
+<% if false %>-------ここまで------<% end %>
+
+<div class="user_show_books">
+	<h1>Books</h1>
+	<table>
+		<tr>
+			<th></th>
+			<th>Title</th>
+			<th>Opinion</th>
+		</tr>
+		<% @books.each do |books| %>
+		<tr>
+			<td>ユーザーイメージ</td>
+			<td><%= books.title %></td>
+			<td><%= books.body %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>
+</div>
