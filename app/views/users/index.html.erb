@@ -1,38 +1,10 @@
 <div class="page_box">
 
 <% if false %>----ここから---------<% end %>
-<div class="sidebar">
-	<div class="user_info">
-		<h1>User info</h1>
-		<div>ユーザーイメージ</div>
-		<table>
-			<tr>
-				<th>name</th>
-				<th><%= current_user.name %></th>
-			</tr>
-			<tr>
-				<th>introduction</th>
-				<th><%= current_user.introduction %></th>
-			</tr>
-		</table>
-		<p>edit</p>
-	</div>
-		<%= form_for(@post) do |f| %>
-	<div class="New_book">
-		<p><%= f.label :title,"Title" %></p>
-		<p><%= f.text_field :title %></p>
-
-		<p><%= f.label :body,"Opinion" %></p>
-		<p><%= f.text_area :body %></p>
-
-		<%= f.submit 'Create Book' %>
-		<% end %>
-	</div>
-
-</div>
+<%= render 'users/sidebar', post: @post %>
 <% if false %>-------ここまで------<% end %>
 
-<div class="users-index">
+<main>
 	<h1>Users</h1>
 	<table>
 		<tr>
@@ -42,11 +14,11 @@
 		</tr>
 		<% @user.each do |user| %>
 		<tr>
-			<td>ユーザーイメージ</td>
+			<td><%= attachment_image_tag user, :profile_image,fallback: "no_image.jpg", class: "main_user_img" %></td>
 			<td><%= user.name %></td>
 			<td><%= link_to 'show', user_path(user.id) %></td>
 		</tr>
 		<% end %>
 	</table>
-</div>
+<main>
 </div>

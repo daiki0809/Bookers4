@@ -1,0 +1,25 @@
+<div class="page_box">
+
+	<%= render 'users/sidebar', post: @post %>
+
+	<main>
+		<h1>Books</h1>
+		<table>
+		<tr>
+			<th></th>
+			<th>Title</th>
+			<th>Opinion</th>
+		</tr>
+		<% @posts.each do |posts| %>
+		<tr>
+			<td><%= link_to user_path(posts.user_id) do %>
+				<%= attachment_image_tag posts.user, :profile_image,fallback: "no_image.jpg", class: "main_user_img" %>
+				<% end %>
+				</td>
+			<td><%= link_to "#{posts.title}", book_path(posts.id) %></td>
+			<td><%= posts.body %></td>
+		</tr>
+		<% end %>
+		</table>
+	</main>
+</div>

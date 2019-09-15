@@ -1,0 +1,30 @@
+<div class="sidebar">
+	<div class="user_info">
+		<h1>User info</h1>
+		<%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+		<table>
+			<tr>
+				<th>name</th>
+				<th><%= user.name %></th>
+			</tr>
+			<tr>
+				<th>introduction</th>
+				<th><%= user.introduction %></th>
+			</tr>
+		</table>
+		<p><%= link_to 'edit', edit_user_path(current_user.id) %>
+		</p>
+	</div>
+		<%= form_for(post) do |f| %>
+	<div class="New_book">
+		<p><%= f.label :title,"Title" %></p>
+		<p><%= f.text_field :title %></p>
+
+		<p><%= f.label :body,"Opinion" %></p>
+		<p><%= f.text_area :body %></p>
+
+		<%= f.submit 'Create Book' %>
+		<% end %>
+	</div>
+
+</div>

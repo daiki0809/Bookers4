@@ -56,6 +56,11 @@ ul {
 .page_box {
 	margin: 0 100px;
 }
-.user_index {
+main {
 	float: left;
+}
+
+.main_user_img {
+	width: 30px;
+	height: 30px;
 }

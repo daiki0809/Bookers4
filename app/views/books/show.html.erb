@@ -1,0 +1,25 @@
+<div class="page_box">
+	<%= render 'users/sidebar2', user: @user, post: @post %>
+
+	<main>
+		<h1>Book detail</h1>
+		<table>
+			<tr>
+				<td>
+					<%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+					<p>
+					<%= link_to "#{@user.name}", user_path(@user.id) %>
+					</p>
+				</td>
+				<td><%= @posts.title %>
+				</td>
+				<td><%= @posts.body %></td>
+			<% if @user.id == current_user.id %>
+				<td><%= link_to 'Edit', edit_book_path(@posts.id) %>
+				</td>
+				<td><%= link_to 'Destroy', book_path, method: :delete, data: { confirm: '本当に消しますか？' } %></td>
+			<% end %>
+			</tr>
+		</table>
+	</main>
+</div>
