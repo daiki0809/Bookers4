@@ -1,6 +1,23 @@
+<div class="container">
+	<div class="row">
+
+
 <h1>User info</h1>
 
+<% if @user.errors.any? %>
+<div id ="error_explanation" class="error">
+<h2><%= @user.errors.count %>error prohibited this odj from being saved:</h2>
+	<ul>
+		<% @user.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
 <%= form_for(@user) do |f| %>
+
+
 
 	<p><%= f.label :name, "Name" %>
 	<%= f.text_field :name %></p>
@@ -14,3 +31,8 @@
 	<%= f.submit 'Update User' %>
 
 <% end %>
+
+	</div>
+</div>
+
+<%= render 'home/footer' %>

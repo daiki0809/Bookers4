@@ -1,17 +1,27 @@
-<div class="page_box">
+<div class="page_box container">
+	<div class="row">
+
+	<%= render 'devise/sessions/flash' %>
+
+		<% if flash[:ok] %>
+		<p><%= flash[:ok] %></p>
+	<% end %>
+
 
 <% if false %>----ここから---------<% end %>
 <%= render 'users/sidebar2', user: @user, post: @post %>
 <% if false %>-------ここまで------<% end %>
 
-<main>
+<main class="col-xs-9">
 	<h1>Books</h1>
-	<table>
+	<table class="table table-hover">
+		<thead>
 		<tr>
 			<th></th>
 			<th>Title</th>
 			<th>Opinion</th>
 		</tr>
+	</thead>
 		<% @books.each do |books| %>
 		<tr>
 			<td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
@@ -21,4 +31,7 @@
 		<% end %>
 	</table>
 <main>
+	</div>
 </div>
+
+<%= render 'home/footer' %>

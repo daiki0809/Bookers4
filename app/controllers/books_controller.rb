@@ -1,17 +1,23 @@
 class BooksController < ApplicationController
-  def top
-  end
+  
+  before_action :authenticate_user!
+
 
   def index
-    @posts = Book.all
-    @post = Book.new
+    @books = Book.all
+    @book = Book.new
   end
 
   def create
-  	post = Book.new(post_params)
-    post.user_id = current_user.id
-  	post.save
-  	redirect_to book_path(post.id)
+  	@book = Book.new(book_params)
+    @book.user_id = current_user.id
+    if @book.save
+      flash[:notice] = "You have created book successfully."
+  	  redirect_to book_path(@book.id)
+    else
+      @books = Book.all
+      render :index
+    end
   end
 
   def show
@@ -21,13 +27,24 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @post = Book.find(params[:id])
+   @post = Book.find(params[:id])
+    if @post.user_id != current_user.id
+      redirect_to books_path
+    end
   end
 
   def update
     @post = Book.find(params[:id])
-    @post.update(post_params)
-    redirect_to book_path(@post.id)
+    if @post.user_id != current_user.id
+      redirect_to books_path
+   end
+    @post.update(book_params)
+    if @post.update(book_params)
+      flash[:notice] = "You have updated book successfully."
+      redirect_to book_path(@post.id)
+    else
+      render action: :edit
+    end
   end
 
   def destroy
@@ -38,7 +55,7 @@ class BooksController < ApplicationController
 
 
   private
-  def post_params
+  def book_params
   	params.require(:book).permit(:title, :body)
   end
 end
