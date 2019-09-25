@@ -11,9 +11,47 @@
 				<th>introduction</th>
 				<th><%= user.introduction %></th>
 			</tr>
+			<tr>
+				<th>
+					<a href="<%= following_user_path(user) %>">
+						<strong id="following" class="stat">
+							<%= user.following.count %>
+						</strong>
+						following
+					</a>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<a href="<%= followers_user_path(user) %>">
+						<strong id="followers" class="stat">
+							<%= user.followers.count %>
+						</strong>
+						followers
+					</a>
+				</th>
+			</tr>
 		</table>
-		<div class="row"><%= link_to "", edit_user_path(user.id), class:"btn btn-default glyphicon glyphicon-wrench col-xs-12" %>
+	<% if user == current_user %>
+		<div><%= link_to "", edit_user_path(user.id), class:"btn btn-default glyphicon glyphicon-wrench col-xs-12" %>
 		</div>
+
+	<% else %>
+		<div class="follow_form">
+			<% if current_user.following?(user) %>
+			<%= form_for(current_user.active_relationships.find_by(followed_id: user.id), html: { method: :delete }) do |f| %>
+			<%= f.submit "Unfollow", class: "btn btn-danger col-xs-12" %>
+			<% end %>
+
+			<% else %>
+			<%= form_for(current_user.active_relationships.build) do |f| %>
+			<div><%= hidden_field_tag :followed_id, user.id %>
+			</div>
+			<%= f.submit "Follow", class: "btn btn-primary col-xs-12" %>
+			<% end %>
+			<% end %>
+		</div>
+	<% end %>
 	</div>
 		<h1 class="new-book-title">New book</h1>
 		<%= form_for(post) do |f| %>
