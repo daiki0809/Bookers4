@@ -38,8 +38,7 @@ class BooksController < ApplicationController
     if @post.user_id != current_user.id
       redirect_to books_path
    end
-    @post.update(book_params)
-    if @post.update(book_params)
+    if @post.update!(book_params)
       flash[:notice] = "You have updated book successfully."
       redirect_to book_path(@post.id)
     else
@@ -51,6 +50,12 @@ class BooksController < ApplicationController
     @post = Book.find(params[:id])
     @post.destroy
     redirect_to books_path
+  end
+
+  def search
+    @books = Book.search(params[:search])
+    @book = Book.new
+    render "index"
   end
 
 

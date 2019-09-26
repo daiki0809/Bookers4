@@ -13,23 +13,29 @@
 </div>
 <% end %>
 
-	<%= form_for(@post) do |f| %>
-
+<form method="POST" action="<%= book_path(@post.id) %>">
+	<input type="hidden" name="_method" value="patch">
+	<input type="hidden" name="authenticity_token" value="<%= session[:_csrf_token] %>">
+<div class="form-group">
 	<P><strong>
-		<%= f.label :title, "Title" %>
+		<label for="book[title]">Title</label>
 		</strong>
 	</P>
-		<p><%= f.text_field :title, class:"col-xs-12 field" %></p>
 
+	<input class="form-control" name="book[title]" value="<%= @post.title %>">
+</div>
+<div class="form-group">
 	<P><strong>
-		<%= f.label :body, "Opinion" %>
+		<label for="book[body]">Opinion</label>
 		</strong>
 	</P>
-		<p><%= f.text_area :body, class:"col-xs-12 field" %></p>
 
-		<%= f.submit "Update Book", class:"field btn btn-primary col-xs-12" %>
-
-	<% end %>
+	<input class="form-control" name="book[body]" value="<%= @post.body %>">
+</div>
+<div class="form-group">
+	<input class="btn btn-default" type="submit" value="update book">
+</div>
+</form>
 
 	<p><%= link_to 'Show', book_path(@post.id) %> | <%= link_to 'Back', books_path %>
 	</p>
