@@ -58,8 +58,36 @@ class UsersController < ApplicationController
 	end
 
 	def search
-		@user = User.search(params[:search])
-		render "index"
+		@which = params[:name]
+		@method = params[:method]
+		
+		if @which == "1"
+			@title = "user"
+			if @method == "a"
+				@user = User.search_front(params[:search])
+			elsif @method == "b"
+				@user = User.search_back(params[:search])
+			elsif @method == "c"
+				@user = User.search_all(params[:search])
+			else
+				@user = User.search(params[:search])
+			end
+		  render 'index'
+
+		else
+			@title = "book"
+			@book = Book.new
+			if @method == "a"
+				@books = Book.search_front(params[:search])
+			elsif @method == "b"
+				@books = Book.search_back(params[:search])
+			elsif @method == "c"
+				@books = Book.search_all (params[:search])
+			else
+				@books = Book.search(params[:search])
+			end
+			render 'books/index'
+		end
 	end
 
 	private

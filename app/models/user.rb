@@ -40,7 +40,22 @@ class User < ApplicationRecord
   end
 
   def self.search(search)
-    return User.all unless search
+    return User.all if search == ""
     User.where(['name LIKE ?', "%#{search}%"])
+  end
+
+  def self.search_front(search)
+    return User.all if search == ""
+    User.where(['name LIKE ?', "#{search}%"])
+  end
+
+  def self.search_back(search)
+    return User.all if search == ""
+    User.where(['name LIKE ?', " %#{search}"])
+  end
+
+  def self.search_all(search)
+    return User.all if search == ""
+    User.where(['name LIKE ?', "#{search}"])
   end
 end

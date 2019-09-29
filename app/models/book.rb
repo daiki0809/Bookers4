@@ -9,4 +9,19 @@ class Book < ApplicationRecord
 		return Book.all unless search
 		Book.where(['title LIKE?', "%#{search}%"])
 	end
+
+	def self.search_front(search)
+		return Book.all unless search
+		Book.where(['title LIKE?', "#{search}%"])
+	end
+
+	def self.search_back(search)
+		return Book.all unless search
+		Book.where(['title LIKE?', "%#{search}"])
+	end
+
+	def self.search_all(search)
+		return Book.all if search == ""
+		Book.where(['title LIKE?', "#{search}"])
+	end
 end
