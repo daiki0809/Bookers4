@@ -16,3 +16,20 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(function() {
+	$(document).on('click', 'input[type=submit]', function() {
+		if ($('input[type=text]').val() == '') {
+			return false;
+		}
+	})
+})
+
+$(function() {
+	$(document).on('ajax:success', 'form', function(e) {
+		$('.form-control').val('');
+		$('.aaa').remove();
+		$('.book_wrapper').prepend( '<td class="aaa">' + '</td>' + '<td class="aaa">' + e.detail[0].title + '</td>' + '<td class="aaa">' + e.detail[0].body + '</td>' );
+		console.log(e);
+	})
+})

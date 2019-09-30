@@ -22,6 +22,8 @@
 			<th>Opinion</th>
 		</tr>
 	</thead>
+
+	<tr class="book_wrapper"></tr>
 		<% @books.each do |books| %>
 		<tr>
 			<td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
